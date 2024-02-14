@@ -72,14 +72,14 @@ const hard = [
     },
     {
         qId : "qh3",
-        question : `Read two integers m,n and print m^n result :`,
+        question : `Read two integers m,n and print m^n result and print the result (double data type):`,
         ansId : "../validators/vqh3.c",
         tcId : "../testcases/tcqh3.txt",
         bonus : 5
     },
     {
         qId : "qh4",
-        question : `Read an integer and determine whether it is an armstrong number or not :`,
+        question : `Read an integer and print 1 if its an armstrong number and 0 if not`,
         ansId : "../validators/vqh4.c",
         tcId : "../testcases/tcqh4.txt",
         bonus : 7
