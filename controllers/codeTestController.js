@@ -1,8 +1,12 @@
 const fs = require("fs");
 const path = require('path');
-
-const codeTestController = async (req, res) => {
-    const { code, submissionId } = req.body;
+const runCodeController = async (req,res,filename)=>{
+    const buildName = filename+ new Date().getTime();
+    const {qId} = req.body;
+    console.log(qId);
+}
+const codeTestPipeline = async (req, res) => {
+    const { code, submissionId,qId } = req.body;
     const fileName = submissionId.endsWith('.c') ? submissionId : `${submissionId}.c`;
     const directoryPath = path.join("./", 'codes');
     const filePath = path.join(directoryPath, fileName);
@@ -20,11 +24,10 @@ const codeTestController = async (req, res) => {
                 res.status(500).send('Internal Server Error');
                 return;
             }
-
             console.log(`C code saved to ${filePath}`);
-            res.status(200).send('C code saved successfully');
+            runCodeController(req,res,filePath);
         });
     });
 }
 
-module.exports = { codeTestController };
+module.exports = { codeTestPipeline };

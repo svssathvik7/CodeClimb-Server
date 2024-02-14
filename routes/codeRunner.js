@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = express.Router();
-const {codeTestController} = require("../controllers/codeTestController.js");
+const {codeTestPipeline} = require("../controllers/codeTestController.js");
 
-Router.post("/run-code",codeTestController);
+Router.post("/run-code",codeTestPipeline);
 
 module.exports = Router;
