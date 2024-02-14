@@ -5,7 +5,7 @@ const cors = require('cors');
 const dp = require('./db/dbConnection.js');
 const loginRoute = require('./routes/authentication.js');
 const updateScoreRoute = require('./routes/updateScore.js');
-
+const codeRunnerRoute = require("./routes/codeRunner.js");
 
 const app = express();
 
@@ -14,6 +14,7 @@ app.use(cors());
 
 app.use('/api/user/', loginRoute);
 app.use('/api/user/metrics/', updateScoreRoute);
+app.use("/api/codes/",codeRunnerRoute);
 
 app.listen(PORT, () => {
     console.log(`Listening at port ${PORT}`);
