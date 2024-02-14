@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    currPosition: {
+        type: Number,
+        default: 1
+    },
     endPosition: {
         type: Number
     },
@@ -17,7 +21,12 @@ const userSchema = new mongoose.Schema({
     },
     score: {
         type: Number
-    }
+    },
+    questions: [
+        {
+            type: String
+        }
+    ]
 });
 
 const userModel = new mongoose.model('users', userSchema);

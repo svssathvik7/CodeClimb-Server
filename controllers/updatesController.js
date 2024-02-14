@@ -13,4 +13,8 @@ const updateScore = async (req, res) => {
     }
 }
 
-module.exports = { updateScore };
+const updatePosition = async (req, res) => {
+    console.log("hello world");
+}
+
+module.exports = { updateScore, updatePosition };
