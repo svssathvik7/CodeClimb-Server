@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const loginUser = async (req, res) => {
     const { regNo, password } = req.body;
+    console.log(regNo, password);
     try {
         const user = await userModel.findOne({ regNo: regNo });
         if (user === null) {
@@ -22,6 +23,7 @@ const loginUser = async (req, res) => {
     }
     catch (err) {
         console.log('Error', err.message);
+        res.json({ message: "Error has occured", status: false });
     }
 }
 
