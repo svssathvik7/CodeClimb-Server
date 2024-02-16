@@ -12,7 +12,7 @@ int main()
         if(ans[i] != val[i])
         {
             printf("false");
-            break;
+            return 0;
         }
     }
     printf("true");

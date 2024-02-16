@@ -14,35 +14,44 @@ const runCodeController = async (req,res,filename)=>{
     quesDetails = quesDetails[0];
     const validatorName = quesDetails.ansId;
     const testCaseName = quesDetails.tcId;
+    console.log(validatorName,testCaseName);
     const validatorBuild = validatorName.substring(0,validatorName.indexOf(".c"));
     exec(`gcc ${filename} -o ${buildName}`,(error,stdout,stderr)=>{
         if(error){
             console.error(`Compilation error: ${stderr}`);
             res.json({message:'Internal Server Error',status:false});
+            return;
         }
 
         exec(`gcc ${validatorName} -o ${validatorBuild}`,(error,stdout,stderr)=>{
             if(error){
                 console.error(`Compilation error: ${stderr}`);
                 res.json({message:'Internal Server Error',status:false});
+                return;
             }
 
             exec(`${buildName} < ${testCaseName} | ${validatorBuild}`,(error,stdout,stderr)=>{
                 if(error){
                     console.error(`Execution error: ${stderr}`);
                     res.json({message:'Internal Server Error',status:false});
+                    return;
                 }
 
                 const output = stdout.trim();
-                console.log('Output:', output);
-                res.json({message:'Successfull execution!',status:true});
+                if(output == true)
+                {
+                    res.json({message:"Successfull Submission!",status:true,bonus:quesDetails.bonus});
+                }
+                else{
+                    res.json({message:"Wrong output!",status:true,bonus:0});
+                }
             })
         })
     })
 }
 const codeTestPipeline = async (req, res) => {
     const { code, submissionId,qId } = req.body;
-    const fileName = submissionId.endsWith('.c') ? submissionId : `${submissionId}.c`;
+    const fileName = `${submissionId}.c`;
     const directoryPath = path.join("./", 'codes');
     const filePath = path.join(directoryPath, fileName);
     try {
