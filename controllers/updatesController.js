@@ -18,7 +18,6 @@ const updatePosition = async (req, res) => {
     try {
         const query = (from === 'dice-roll') ? { $inc: { currPosition: diceRoll, totalRolls: 1 } } : { $set: { currPosition: diceRoll }, $inc: { totalRolls: 1 } };
         const user = await userModel.findOneAndUpdate({ regNo: regNo }, query, { new: true });
-        console.log(user);
         res.json({ message: "Successfully Updated", status: true, newPosition: user.currPosition });
 
     }

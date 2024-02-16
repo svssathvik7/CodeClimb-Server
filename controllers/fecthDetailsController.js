@@ -1,5 +1,5 @@
 const userModel = require('../models/userModel');
-
+const { easy, hard, medium } = require('../constants/QB');
 
 const getPosition = async (req, res) => {
     const { regNo } = req.body;
@@ -13,4 +13,29 @@ const getPosition = async (req, res) => {
     }
 }
 
-module.exports = { getPosition };
+const getQuestion = async (req, res) => {
+    const { regNo, difficulty } = req.body;
+    try {
+        var query;
+        if (difficulty === 'easy') {
+            const randomNumber = Math.floor(Math.random() * 10);
+            query = easy[randomNumber];
+        }
+        else if (difficulty === 'hard') {
+            const randomNumber = Math.floor(Math.random() * 7);
+            query = hard[randomNumber];
+        }
+        else {
+            query = 'medium';
+        }
+
+        res.json({ message: "Successfully Fetched Question", status: true, question: query });
+
+    }
+    catch (err) {
+        console.log('Error message' + err.message);
+        res.json({ message: "Error Occured", status: false });
+    }
+}
+
+module.exports = { getPosition, getQuestion };
