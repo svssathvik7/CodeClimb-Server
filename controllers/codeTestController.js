@@ -38,7 +38,7 @@ const runCodeController = async (req,res,filename)=>{
                 }
 
                 const output = stdout.trim();
-                if(output == true)
+                if(output === "true")
                 {
                     res.json({message:"Successfull Submission!",status:true,bonus:quesDetails.bonus});
                 }
