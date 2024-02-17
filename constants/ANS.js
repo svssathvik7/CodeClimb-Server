@@ -48,6 +48,41 @@ const ans = [
         ansId : "ans10",
         ans : `printf("%d",printf("1 1"));`,
         score : 1
-    }
+    },
+    {
+        ansId : "ans11",
+        ans : `if(i%2==0)`,
+        score : 3
+    },
+    {
+        ansId : "ans12",
+        ans : `if(i%2!=0)`,
+        score : 3
+    },
+    {
+        ansId : "ans13",
+        ans : `scanf("%d",&num);`,
+        score : 3
+    },
+    {
+        ansId : "ans14",
+        ans : `printf("AfterSwapping:num1=%d,num2=%d",num1,num2);`,
+        score : 3
+    },
+    {
+        ansId : "ans15",
+        ans : `if((year%4==0&&year%100!=0)||(year%400==0))`,
+        score : 3
+    },
+    {
+        ansId : "ans16",
+        ans : `for(j=1;j<=i;j++)`,
+        score : 3
+    },
+    {
+        ansId : "ans17",
+        ans : `simpleInterest=(principle*rate*time)/100;`,
+        score : 3
+    },
 ];
 module.exports = {ans};
