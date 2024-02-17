@@ -38,4 +38,13 @@ const getQuestion = async (req, res) => {
     }
 }
 
-module.exports = { getPosition, getQuestion };
+const getLeaderBoard = async(req,res)=>{
+    try {
+        const users = await userModel.find({}).select("regNo score");
+        res.send({message:"Success!",status:true,leaderBoard:users});
+    } catch (err) {
+        console.log('Error message' + err.message);
+        res.json({ message: "Error Occured", status: false });
+    }
+}
+module.exports = { getPosition, getQuestion, getLeaderBoard};
