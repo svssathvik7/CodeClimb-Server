@@ -18,11 +18,11 @@ const getQuestion = async (req, res) => {
     try {
         var query;
         if (difficulty === 'easy') {
-            const randomNumber = Math.floor(Math.random() * 10);
+            const randomNumber = Math.floor(Math.random() * easy.length);
             query = easy[randomNumber];
         }
         else if (difficulty === 'hard') {
-            const randomNumber = Math.floor(Math.random() * 7);
+            const randomNumber = Math.floor(Math.random() * hard.length);
             query = hard[randomNumber];
         }
         else {
