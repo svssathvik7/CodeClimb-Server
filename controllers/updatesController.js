@@ -19,6 +19,7 @@ const updatePosition = async (req, res) => {
     try {
         if (diceRoll !== 0) {
             const query = (from === 'dice-roll') ? { $inc: { currPosition: diceRoll, totalRolls: 1 } } : { $set: { currPosition: diceRoll }, $inc: { totalRolls: 1 } };
+            console.log(query);
             const user = await userModel.findOneAndUpdate({ regNo: regNo }, query, { new: true });
             const score = Math.round(((user.currPosition - 1) / user.totalRolls) * 100);
             await userModel.updateOne({ regNo: regNo }, { $set: { score: score } });
