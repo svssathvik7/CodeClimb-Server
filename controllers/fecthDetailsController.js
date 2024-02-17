@@ -39,6 +39,7 @@ const getQuestion = async (req, res) => {
 }
 
 const getLeaderBoard = async(req,res)=>{
+    console.log("requested leaderboard");
     try {
         const users = await userModel.find({}).select("regNo score");
         res.send({message:"Success!",status:true,leaderBoard:users});
