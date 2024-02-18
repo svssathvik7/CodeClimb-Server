@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/HP/codathon-server/codes",
-      "program": "c:/Users/HP/codathon-server/codes/build/Debug/outDebug",
+      "cwd": "c:/Users/HP/codathon-server/codathon-server/validators",
+      "program": "c:/Users/HP/codathon-server/codathon-server/validators/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

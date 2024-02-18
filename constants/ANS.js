@@ -71,7 +71,7 @@ const ans = [
     },
     {
         ansId : "ans15",
-        ans : `if((year%4==0&&year%100!=0)||(year%400==0))`,
+        ans : `printf("Enterayear:");`,
         score : 3
     },
     {
@@ -81,7 +81,7 @@ const ans = [
     },
     {
         ansId : "ans17",
-        ans : `simpleInterest=(principle*rate*time)/100;`,
+        ans : `printf("SimpleInterest:%.2f",simpleInterest);`,
         score : 3
     }
 ];
