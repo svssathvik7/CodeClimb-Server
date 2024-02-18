@@ -75,7 +75,7 @@ const medium = [
         qId: "qm5",
         question: "mediumQB/mp5.jpg",
         ansId: "ans15",
-    },
+    },  
     {
         qId: "qm6",
         question: "mediumQB/mp6.jpg",
