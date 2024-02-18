@@ -55,6 +55,43 @@ const easy = [
         ansId : "ans10"
     }
 ];
+const medium = [
+    {
+        qId : "qm1",
+        question : "mediumQB/mp1.jpg",
+        ansId : "ans11",
+    },
+    {
+        qId : "qm2",
+        question : "mediumQB/mp2.jpg",
+        ansId : "ans12",
+    },
+    {
+        qId : "qm3",
+        question : "mediumQB/mp3.jpg",
+        ansId : "ans13",
+    },
+    {
+        qId : "qm4",
+        question : "mediumQB/mp4.jpg",
+        ansId : "ans14",
+    },
+    {
+        qId : "qm5",
+        question : "mediumQB/mp5.jpg",
+        ansId : "ans15",
+    },
+    {
+        qId : "qm6",
+        question : "mediumQB/mp6.jpg",
+        ansId : "ans16",
+    },
+    {
+        qId : "qm7",
+        question : "mediumQB/mp7.jpg",
+        ansId : "ans17",
+    }
+];
 const hard = [
     {
         qId : "qh1",
@@ -106,4 +143,4 @@ const hard = [
         bonus : 7
     },
 ]
-module.exports = {easy,hard};
+module.exports = {easy,hard,medium};
