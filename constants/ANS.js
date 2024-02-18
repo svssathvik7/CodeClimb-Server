@@ -36,12 +36,12 @@ const ans = [
     },
     {
         ansId : "ans8",
-        ans : `scanf("%[^\n]",s);`,
+        ans : `scanf("%[^\\n]",s);`,
         score : 1
     },
     {
         ansId : "ans9",
-        ans : `scanf("%[^\n]",s);`,
+        ans : `scanf("%[^\\n]",s);`,
         score : 1
     },
     {
@@ -56,7 +56,7 @@ const ans = [
     },
     {
         ansId : "ans12",
-        ans : `if(i%2!=0)`,
+        ans : `digit=num%10;`,
         score : 3
     },
     {
