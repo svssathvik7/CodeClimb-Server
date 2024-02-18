@@ -1,5 +1,5 @@
 const userModel = require('../models/userModel');
-
+const reqModel = require("../models/requirementModel");
 
 const updatePosition = async (req, res) => {
     const { diceRoll, regNo, from } = req.body;
@@ -25,5 +25,41 @@ const updatePosition = async (req, res) => {
 
     }
 }
-
-module.exports = { updatePosition };
+const updateContestTimer = async(req,res)=>{
+    const {regNo,startTime} = req.body;
+    const acl = ["21331A05G3","21331A05F9","21331A05G5"];
+    console.log(regNo);
+    if(acl.includes(regNo))
+    {
+        try {
+            const reqDoc = await reqModel.findOne({id:"requirements"});
+            if(reqDoc){
+                res.json({message:"Success!",status:true,startTime:reqDoc.startTime});
+            }
+            else{
+                const reqDoc = await new reqModel({
+                    id : "requirement",
+                    startTime : new Date()
+                });
+                await reqDoc.save();
+                res.json({ message: "No doc found", status: true,startTime:reqDoc.startTime });
+            }
+        } catch (error) {
+            console.log(error);
+            res.json({ message: "Internal error", status: false });
+        }
+    }
+    else{
+        res.json({ message: "No access", status: false });
+    }
+}
+const getContestTime = async(req,res)=>{
+    try {
+        const result = await reqModel.findOne({id:"requirement"});
+        res.json({message:"Success!",status:true,startTime: result.startTime});
+    } catch (error) {
+        console.log(error.message);
+        res.json({ message: "Error getting Contest Time", status: false });
+    }
+}
+module.exports = { updatePosition,updateContestTimer,getContestTime };
