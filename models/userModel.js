@@ -22,11 +22,20 @@ const userSchema = new mongoose.Schema({
     score: {
         type: Number
     },
-    questions: [
-        {
-            type: String
+    questions: {
+        easy: {
+            type: [String],
+            default: []
+        },
+        medium: {
+            type: [String],
+            default: []
+        },
+        hard: {
+            type: [String],
+            default: []
         }
-    ]
+    },
 });
 
 const userModel = new mongoose.model('users', userSchema);
