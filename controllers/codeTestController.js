@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require('path');
 const { exec } = require("child_process");
-const { easy, hard } = require("../constants/QB");
+const { easy, hard, medium } = require("../constants/QB");
 const { ans } = require("../constants/ANS");
 const getQuestionDetails = async (qId) => {
     if (qId.slice(0, 2) === 'qs') {
@@ -15,7 +15,9 @@ const getQuestionDetails = async (qId) => {
         });
     }
     else {
-        console.log("Medium Level Questions");
+        return medium.filter((item) => {
+            return (item.qId === qId)
+        });
     }
 }
 const getEasyAnswer = async (ansId) => {
@@ -72,6 +74,7 @@ const validateEasyQuestion = async (req, res) => {
         var userCode = code.trim();
         var ans = await getEasyAnswer(quesDetails.ansId);
         ans = ans[0].ans;
+        console.log(userCode);
         if (userCode === ans) {
             res.json({ message: "Successfull Submission!", status: true, bonus: quesDetails.bonus });
         }
@@ -88,7 +91,7 @@ const codeTestPipeline = async (req, res) => {
     const fileName = `${submissionId}.c`;
     const directoryPath = path.join("./", 'codes');
     const filePath = path.join(directoryPath, fileName);
-    if (difficulty === "easy") {
+    if (difficulty === "easy" || difficulty === "medium") {
         validateEasyQuestion(req, res);
         return;
     }

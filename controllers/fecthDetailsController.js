@@ -26,9 +26,9 @@ const getQuestion = async (req, res) => {
             query = hard[randomNumber];
         }
         else {
-            query = 'medium';
+            const randomNumber = Math.floor(Math.random() * medium.length);
+            query = medium[randomNumber];
         }
-
         res.json({ message: "Successfully Fetched Question", status: true, question: query });
 
     }
