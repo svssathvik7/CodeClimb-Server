@@ -1,9 +1,9 @@
 const express = require('express');
 const Router = express.Router();
-const { updateScore, updatePosition } = require('../controllers/updatesController.js');
+const { updateScore, updatePosition,updateContestTimer,getContestTime } = require('../controllers/updatesController.js');
 
 
-Router.post('/updateScore', updateScore);
 Router.post('/updatePosition', updatePosition);
-
+Router.post("/set-contest-time",updateContestTimer);
+Router.get("/get-contest-time",getContestTime);
 module.exports = Router;
