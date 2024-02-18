@@ -28,21 +28,23 @@ const updatePosition = async (req, res) => {
 const updateContestTimer = async(req,res)=>{
     const {regNo,startTime} = req.body;
     const acl = ["21331A05G3","21331A05F9","21331A05G5"];
-    console.log(regNo);
     if(acl.includes(regNo))
     {
+        var defaultStartTime = Date.now();
+        defaultStartTime += 60*60*1000;
         try {
-            const reqDoc = await reqModel.findOne({id:"requirements"});
+            var reqDoc = await reqModel.findOne({id:"requirements"});
             if(reqDoc){
+                reqDoc = await reqModel.findOneAndUpdate({id:"requirements"},{startTime:defaultStartTime});
+                await reqDoc.save();
                 res.json({message:"Success!",status:true,startTime:reqDoc.startTime});
             }
             else{
                 const reqDoc = await new reqModel({
-                    id : "requirement",
-                    startTime : new Date()
+                    startTime : defaultStartTime
                 });
                 await reqDoc.save();
-                res.json({ message: "No doc found", status: true,startTime:reqDoc.startTime });
+                res.json({ message: "No doc found", status: true,startTime:startTime ? startTime : defaultStartTime});
             }
         } catch (error) {
             console.log(error);
@@ -54,8 +56,9 @@ const updateContestTimer = async(req,res)=>{
     }
 }
 const getContestTime = async(req,res)=>{
+    console.log("get time");
     try {
-        const result = await reqModel.findOne({id:"requirement"});
+        const result = await reqModel.findOne({id:"requirements"});
         res.json({message:"Success!",status:true,startTime: result.startTime});
     } catch (error) {
         console.log(error.message);
