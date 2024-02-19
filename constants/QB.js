@@ -2,52 +2,62 @@ const easy = [
     {
         qId: "qs1",
         question: `print("%d",5);`,
-        ansId: "ans1"
+        ansId: "ans1",
+        bonus: 0
     },
     {
         qId: "qs2",
         question: `printf("%d",*5);`,
-        ansId: "ans2"
+        ansId: "ans2",
+        bonus: 0
     },
     {
         qId: "qs3",
         question: `scanf("%d",#a);`,
-        ansId: "ans3"
+        ansId: "ans3",
+        bonus: 0
     },
     {
         qId: "qs4",
         question: `for(int i=0;i<5;i+)`,
-        ansId: "ans4"
+        ansId: "ans4",
+        bonus: 0
     },
     {
         qId: "qs5",
         question: `for(int i=0,i<5,i++)`,
-        ansId: "ans5"
+        ansId: "ans5",
+        bonus: 0
     },
     {
         qId: "qs6",
         question: `for(int i=0;i<5,i++)`,
-        ansId: "ans5"
+        ansId: "ans5",
+        bonus: 0
     },
     {
         qId: "qs7",
         question: `for(int i=0,i<5;i++)`,
-        ansId: "ans7"
+        ansId: "ans7",
+        bonus: 0
     },
     {
         qId: "qs8",
         question: `scanf("%[^n]",s);`,
-        ansId: "ans8"
+        ansId: "ans8",
+        bonus: 0
     },
     {
         qId: "qs9",
         question: `scanf("%[\n]",s);`,
-        ansId: "ans9"
+        ansId: "ans9",
+        bonus: 0
     },
     {
         qId: "qs10",
         question: `printf("%d",print("1 1"));`,
-        ansId: "ans10"
+        ansId: "ans10",
+        bonus: 0
     }
 ];
 const medium = [
@@ -55,36 +65,43 @@ const medium = [
         qId: "qm1",
         question: "mediumQB/mp1.jpg",
         ansId: "ans11",
+        bonus: 2
     },
     {
         qId: "qm2",
         question: "mediumQB/mp2.jpg",
         ansId: "ans12",
+        bonus: 2
     },
     {
         qId: "qm3",
         question: "mediumQB/mp3.jpg",
         ansId: "ans13",
+        bonus: 2
     },
     {
         qId: "qm4",
         question: "mediumQB/mp4.jpg",
         ansId: "ans14",
+        bonus: 2
     },
     {
         qId: "qm5",
         question: "mediumQB/mp5.jpg",
         ansId: "ans15",
-    },  
+        bonus: 2
+    },
     {
         qId: "qm6",
         question: "mediumQB/mp6.jpg",
         ansId: "ans16",
+        bonus: 2
     },
     {
         qId: "qm7",
         question: "mediumQB/mp7.jpg",
         ansId: "ans17",
+        bonus: 2
     }
 ];
 const hard = [

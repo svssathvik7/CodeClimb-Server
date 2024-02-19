@@ -27,7 +27,7 @@ const getEasyAnswer = async (ansId) => {
 }
 const runCodeController = async (req, res, filename) => {
     const buildName = filename + new Date().getTime();
-    const { qId } = req.body;  
+    const { qId } = req.body;
     var quesDetails = await getQuestionDetails(qId);
     quesDetails = quesDetails[0];
     const validatorName = quesDetails.ansId;
@@ -66,7 +66,7 @@ const runCodeController = async (req, res, filename) => {
         })
     })
 }
-const validateEasyQuestion = async (req, res,difficulty) => {
+const validateEasyQuestion = async (req, res, difficulty) => {
     try {
         const { code, qId } = req.body;
         var quesDetails = await getQuestionDetails(qId);
@@ -74,7 +74,7 @@ const validateEasyQuestion = async (req, res,difficulty) => {
         var userCode = code.trim();
         var ans = await getEasyAnswer(quesDetails.ansId);
         ans = ans[0].ans;
-        if (difficulty === "medium"){
+        if (difficulty === "medium") {
             userCode = userCode = userCode.replace(/\s/g, '');
         }
         console.log(userCode);
@@ -95,7 +95,7 @@ const codeTestPipeline = async (req, res) => {
     const directoryPath = path.join("./", 'codes');
     const filePath = path.join(directoryPath, fileName);
     if (difficulty === "easy" || difficulty === "medium") {
-        validateEasyQuestion(req, res,difficulty);
+        validateEasyQuestion(req, res, difficulty);
         return;
     }
     else {
