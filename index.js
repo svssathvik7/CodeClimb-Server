@@ -66,20 +66,3 @@ io.on('connection', (socket) => {
         socket.emit('on-set-score-zero', result);
     })
 });
-
-
-
-// //Socket is unique object created each for connection.
-// //the below method make the user associated with the particular socket to join into the room with unique id contained in data.
-// socket.on('join_chat_room', (data) => {
-//     socket.join(data.roomChat);
-// })
-// //Function to handle new messages and emit them to the sender and the person with unique chat id.
-// socket.on("send_message", async (data) => {
-//     const messageObject = await addMessage(data);
-//     //This sends the message to the user present in the room except for the sender.
-//     socket.to(data.roomChat).emit('receive_message', { data, messageObject });
-//     //This sends the messaege to the sender
-//     socket.emit('receive_message', { data, messageObject });
-// });
-// })
