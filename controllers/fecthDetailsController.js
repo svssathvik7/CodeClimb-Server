@@ -1,15 +1,14 @@
 const userModel = require('../models/userModel');
 const { easy, hard, medium } = require('../constants/QB');
 
-const getPawnDetails = async (req, res) => {
-    const { regNo } = req.body;
+const getPawnDetails = async (regNo) => {
     try {
         const userDetails = await userModel.findOne({ regNo: regNo });
-        res.json({ message: "Successfully Fetched", userDetails: userDetails, status: true })
+        return userDetails;
     }
     catch (err) {
         console.log('Error message' + err.message);
-        res.json({ message: "Error Occured", status: false });
+        return false;
     }
 }
 const getUnvisitedQuestion = (child, parent) => {
@@ -66,11 +65,10 @@ const getQuestion = async (req, res) => {
         res.json({ message: "Error Occured", status: false });
     }
 }
-
 const getLeaderBoard = async (req, res) => {
     console.log("requested leaderboard");
     try {
-        const users = await userModel.find({}).select("regNo score").sort({score:-1});
+        const users = await userModel.find({}).select("regNo score").sort({ score: -1 });
         res.send({ message: "Success!", status: true, leaderBoard: users });
     } catch (err) {
         console.log('Error message' + err.message);

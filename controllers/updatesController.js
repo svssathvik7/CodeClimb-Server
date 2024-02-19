@@ -1,44 +1,60 @@
 const userModel = require('../models/userModel');
 const reqModel = require("../models/requirementModel");
 
-const updatePosition = async (req, res) => {
-    const { diceRoll, regNo, from } = req.body;
+const updatePosition = async (diceRoll, regNo, from) => {
     try {
+        var newPosition, score;
         if (diceRoll !== 0) {
             const query = (from === 'dice-roll') ? { $inc: { currPosition: diceRoll, totalRolls: 1 } } : { $set: { currPosition: diceRoll }, $inc: { totalRolls: 1 } };
             const user = await userModel.findOneAndUpdate({ regNo: regNo }, query, { new: true });
-            const score = user.currPosition * 100;
+            score = user.currPosition * 100;
             await userModel.updateOne({ regNo: regNo }, { $set: { score: score } });
-            res.json({ message: "Successfully Updated", status: true, newPosition: user.currPosition, score: score });
+            newPosition = user.currPosition;
         }
         else {
             const user = await userModel.findOne({ regNo: regNo });
-            res.json({ message: "Succssfully updated", status: true, newPosition: user.currPosition, score: user.score });
+            score = user.score;
+            newPosition = user.currPosition;
         }
+        const newPositionObject = {
+            newPosition: newPosition,
+            score: score
+        }
+        return newPositionObject;
 
     }
     catch (err) {
         console.log(err.message);
-        res.json({ message: "Error while updated position of the user", status: false });
+        return false;
+    }
+}
 
+const updateBonus = async (regNo, bonus) => {
+    try {
+        await userModel.updateOne({ regNo: regNo }, { $inc: { bonus: bonus } });
+        return true;
+    }
+    catch (err) {
+        console.log(err.message);
+        return false;
     }
 }
 const updateUserRollValue = async (req, res) => {
     const { regNo, diceRoll } = req.body;
     try {
-      const user = await userModel.findOneAndUpdate({ regNo: regNo },
-        { $push: { rollValues: diceRoll } },
-        { new: true }
-      );
-  
-      res.json({
-        message: 'Successfully updated dice roll value',
-        status: true,
-        rollValues: user.rollValues,
-      });
+        const user = await userModel.findOneAndUpdate({ regNo: regNo },
+            { $push: { rollValues: diceRoll } },
+            { new: true }
+        );
+
+        res.json({
+            message: 'Successfully updated dice roll value',
+            status: true,
+            rollValues: user.rollValues,
+        });
     } catch (err) {
-      console.error('Error updating dice roll value:', err.message);
-      res.json({ message: 'Error while updating dice roll value', status: false });
+        console.error('Error updating dice roll value:', err.message);
+        res.json({ message: 'Error while updating dice roll value', status: false });
     }
 }
 
@@ -81,18 +97,14 @@ const getContestTime = async (req, res) => {
         res.json({ message: "Error getting Contest Time", status: false });
     }
 }
-const setScoreZero = async (req, res) => {
+const setScoreZero = async (regNo) => {
     try {
-        console.log(req.body);
-        const { regNo } = req.body;
-        const user = await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0, rollValues:[] } });
-        res.json({ message: "Reset Successfull", status: true, user: user });
-        return;
+        await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0 } });
+        return true;
     }
     catch (err) {
         console.log(err.message);
-        res.json({ message: "Error resetting Score", status: false });
-        return;
+        return false;
     }
 }
 module.exports = { updatePosition, updateContestTimer, getContestTime, setScoreZero, updateUserRollValue };

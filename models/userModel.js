@@ -36,10 +36,11 @@ const userSchema = new mongoose.Schema({
             default: []
         }
     },
-    rollValues : {
-        type : [Number],
-        default : []
-    }
+    rollValues: {
+        type: [Number],
+        default: []
+    },
+    bonus: { type: Number, default: 0 }
 });
 
 const userModel = new mongoose.model('users', userSchema);
