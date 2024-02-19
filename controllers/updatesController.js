@@ -23,6 +23,25 @@ const updatePosition = async (req, res) => {
 
     }
 }
+const updateUserRollValue = async (req, res) => {
+    const { regNo, diceRoll } = req.body;
+    try {
+      const user = await userModel.findOneAndUpdate({ regNo: regNo },
+        { $push: { rollValues: diceRoll } },
+        { new: true }
+      );
+  
+      res.json({
+        message: 'Successfully updated dice roll value',
+        status: true,
+        rollValues: user.rollValues,
+      });
+    } catch (err) {
+      console.error('Error updating dice roll value:', err.message);
+      res.json({ message: 'Error while updating dice roll value', status: false });
+    }
+}
+
 const updateContestTimer = async (req, res) => {
     const { regNo, startTime } = req.body;
     const acl = ["21331A05G3", "21331A05F9", "21331A05G5"];
@@ -76,4 +95,4 @@ const setScoreZero = async (req, res) => {
         return;
     }
 }
-module.exports = { updatePosition, updateContestTimer, getContestTime, setScoreZero };
+module.exports = { updatePosition, updateContestTimer, getContestTime, setScoreZero, updateUserRollValue };

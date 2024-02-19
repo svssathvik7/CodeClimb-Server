@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
             default: []
         }
     },
+    rollValues : {
+        type : [Number],
+        default : []
+    }
 });
 
 const userModel = new mongoose.model('users', userSchema);
