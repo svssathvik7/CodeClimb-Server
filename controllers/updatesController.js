@@ -85,7 +85,7 @@ const setScoreZero = async (req, res) => {
     try {
         console.log(req.body);
         const { regNo } = req.body;
-        const user = await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0 } });
+        const user = await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0, rollValues:[] } });
         res.json({ message: "Reset Successfull", status: true, user: user });
         return;
     }
