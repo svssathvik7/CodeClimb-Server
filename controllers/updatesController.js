@@ -102,8 +102,8 @@ const setScoreZero = async (regNo) => {
         await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0, rollValues : [] } });
         return true;
     }
-    catch (err) {
-        console.log(err.message);
+    catch (error) {
+        console.log(error.message);
         return false;
     }
 }
