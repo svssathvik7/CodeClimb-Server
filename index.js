@@ -38,9 +38,6 @@ const io = new Server(expressServer, {
 
 
 io.on('connection', (socket) => {
-    console.log(`User connected to the socket ${socket.id}`);
-
-
     socket.on('getPawnDetails', async (data) => {
         const regNo = data;
         const result = await getPawnDetails(regNo);
