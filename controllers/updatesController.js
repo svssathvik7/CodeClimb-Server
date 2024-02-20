@@ -99,7 +99,7 @@ const getContestTime = async (req, res) => {
 }
 const setScoreZero = async (regNo) => {
     try {
-        await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0, rollValues : [] } });
+        await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { score: 0, currPosition: 1, totalRolls: 0, rollValues: [] } });
         return true;
     }
     catch (error) {

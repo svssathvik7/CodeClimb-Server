@@ -65,6 +65,26 @@ const getQuestion = async (req, res) => {
         res.json({ message: "Error Occured", status: false });
     }
 }
+
+const getResults = async (req, res) => {
+    try {
+        const users = await userModel.find({});
+        users.sort((a, b) => {
+            const scoreComparison = b.score - a.score;
+            if (scoreComparison !== 0) {
+                return scoreComparison;
+            } else {
+                return (b.score / b.totalRolls) - (a.score / a.totalRolls);
+            }
+        });
+        res.json({ message: "Successfully fetched Results.", users: users, status: true });
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({ message: "Error Occured", status: false });
+    }
+}
+
 const getLeaderBoard = async (req, res) => {
     console.log("requested leaderboard");
     try {
@@ -75,4 +95,4 @@ const getLeaderBoard = async (req, res) => {
         res.json({ message: "Error Occured", status: false });
     }
 }
-module.exports = { getPawnDetails, getQuestion, getLeaderBoard };
+module.exports = { getPawnDetails, getQuestion, getLeaderBoard, getResults };
