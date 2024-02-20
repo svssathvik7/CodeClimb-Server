@@ -10,7 +10,7 @@ const socketIo = require('socket.io');
 const { Server } = require("socket.io");
 const codeRunnerRouter = require("./routes/codeRunner.js");
 const fetchDetailsRouter = require("./routes/fetchDetails.js");
-const { getPawnDetails, getQuestion } = require('./controllers/fecthDetailsController.js');
+const { getPawnDetails, getQuestion, getLeaderBoard } = require('./controllers/fecthDetailsController.js');
 const { updatePosition, setScoreZero, updateBonus } = require('./controllers/updatesController.js');
 const { codeTestPipeline } = require('./controllers/codeTestController.js');
 const { loginUser } = require('./controllers/authenticationController.js');
@@ -40,26 +40,35 @@ const io = new Server(expressServer, {
 io.on('connection', (socket) => {
     socket.on('getPawnDetails', async (data) => {
         const regNo = data;
-        const result = await getPawnDetails(regNo);
+        const uniqueRegNo = regNo.toLowerCase();
+        const result = await getPawnDetails(uniqueRegNo);
         socket.emit('pawnDetails', result);
     });
 
     socket.on('updatePawnPosition', async (data) => {
         const { diceRoll, regNo, from } = data;
-        const pawnObject = await updatePosition(diceRoll, regNo, from);
+        const uniqueRegNo = regNo.toLowerCase();
+        const pawnObject = await updatePosition(diceRoll, uniqueRegNo, from);
         socket.emit('updatedPawnDetails', pawnObject);
     });
 
 
     socket.on('login', async (data) => {
         const { regNo, password } = data;
-        const result = await loginUser(regNo, password);
+        const uniqueRegNo = regNo.toLowerCase();
+        const result = await loginUser(uniqueRegNo, password);
         socket.emit('login-result', result);
     });
 
     socket.on('set-score-zero', async (data) => {
         const { regNo } = data;
-        const result = await setScoreZero(regNo);
+        const uniqueRegNo = regNo.toLowerCase();
+        const result = await setScoreZero(uniqueRegNo);
         socket.emit('on-set-score-zero', result);
+    });
+
+    socket.on('get-leader-board', async (data) => {
+        const result = await getLeaderBoard();
+        socket.emit('on-leader-board', result);
     })
 });
