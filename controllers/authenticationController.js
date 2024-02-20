@@ -2,9 +2,41 @@ require('dotenv').config();
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
+
+const registerUser = async (req, res) => {
+    try {
+        const { regNo, password } = req.body;
+        const uniqueRegNo = regNo.toLowerCase();
+        const checkUser = await userModel.findOne({ regNo: uniqueRegNo });
+        if (!checkUser) {
+            const newUser = new userModel({
+                regNo: uniqueRegNo,
+                password: password,
+                score: 0,
+                totalRolls: 0,
+                currPosition: 1,
+                bonus: 0,
+                questions: {
+                    easy: [],
+                    medium: [],
+                    hard: []
+                },
+            });
+            await newUser.save();
+            res.json({ message: "Successfully registered", status: true });
+        }
+        else {
+            res.json({ message: "User already registered!", status: false });
+        }
+    } catch (error) {
+        console.log(error.message);
+        res.json({ message: "Error Occured", status: false });
+    }
+}
 const loginUser = async (regNo, password) => {
     try {
-        const user = await userModel.findOne({ regNo: regNo });
+        const uniqueRegNo = regNo.toLowerCase();
+        const user = await userModel.findOne({ regNo: uniqueRegNo });
         if (user === null) {
             return false;
         }
@@ -25,4 +57,4 @@ const loginUser = async (regNo, password) => {
     }
 }
 
-module.exports = { loginUser };
+module.exports = { loginUser, registerUser };
