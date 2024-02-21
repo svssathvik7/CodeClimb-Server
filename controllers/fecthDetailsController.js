@@ -20,14 +20,13 @@ const getUnvisitedQuestion = (child, parent) => {
 }
 const getQuestion = async (req, res) => {
     const { regNo, difficulty } = req.body;
-    const uniqueRegNo = regNo.toLowerCase();
     try {
-        const user = await userModel.findOne({ regNo: uniqueRegNo });
+        const user = await userModel.findOne({ regNo: regNo });
         var questions = user.questions;
         var query;
         if (difficulty === 'easy') {
             if (questions.easy.length >= easy.length) {
-                questions = await userModel.findOneAndUpdate({ regNo: uniqueRegNo }, { $set: { "questions.easy": [] } }, { new: true });
+                questions = await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { "questions.easy": [] } }, { new: true });
             }
             const randomNumber = getUnvisitedQuestion(questions.easy, easy);
             await userModel.updateOne(
@@ -38,7 +37,7 @@ const getQuestion = async (req, res) => {
         }
         else if (difficulty === 'hard') {
             if (questions.hard.length >= hard.length) {
-                questions = await userModel.updateOne({ regNo: uniqueRegNo }, { $set: { "questions.hard": [] } }, { new: true });
+                questions = await userModel.updateOne({ regNo: regNo }, { $set: { "questions.hard": [] } }, { new: true });
             }
             const randomNumber = getUnvisitedQuestion(questions.hard, hard);
             await userModel.updateOne(
@@ -49,7 +48,7 @@ const getQuestion = async (req, res) => {
         }
         else {
             if (questions.medium.length >= medium.length) {
-                questions = await userModel.findOneAndUpdate({ regNo: uniqueRegNo }, { $set: { "questions.medium": [] } }, { new: true });
+                questions = await userModel.findOneAndUpdate({ regNo: regNo }, { $set: { "questions.medium": [] } }, { new: true });
             }
             const randomNumber = getUnvisitedQuestion(questions.medium, medium);
             await userModel.updateOne(

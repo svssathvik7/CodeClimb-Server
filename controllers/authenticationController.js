@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken');
 const registerUser = async (req, res) => {
     try {
         const { regNo, password } = req.body;
-        const uniqueRegNo = regNo.toLowerCase();
-        const checkUser = await userModel.findOne({ regNo: uniqueRegNo });
+        const checkUser = await userModel.findOne({ regNo: regNo });
         if (!checkUser) {
             const newUser = new userModel({
-                regNo: uniqueRegNo,
+                regNo: regNo,
                 password: password,
                 score: 0,
                 totalRolls: 0,
@@ -35,8 +34,7 @@ const registerUser = async (req, res) => {
 }
 const loginUser = async (regNo, password) => {
     try {
-        const uniqueRegNo = regNo.toLowerCase();
-        const user = await userModel.findOne({ regNo: uniqueRegNo });
+        const user = await userModel.findOne({ regNo: regNo });
         if (user === null) {
             return false;
         }

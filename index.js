@@ -40,30 +40,26 @@ const io = new Server(expressServer, {
 io.on('connection', (socket) => {
     socket.on('getPawnDetails', async (data) => {
         const regNo = data;
-        const uniqueRegNo = regNo.toLowerCase();
-        const result = await getPawnDetails(uniqueRegNo);
+        const result = await getPawnDetails(regNo);
         socket.emit('pawnDetails', result);
     });
 
     socket.on('updatePawnPosition', async (data) => {
         const { diceRoll, regNo, from } = data;
-        const uniqueRegNo = regNo.toLowerCase();
-        const pawnObject = await updatePosition(diceRoll, uniqueRegNo, from);
+        const pawnObject = await updatePosition(diceRoll, regNo, from);
         socket.emit('updatedPawnDetails', pawnObject);
     });
 
 
     socket.on('login', async (data) => {
         const { regNo, password } = data;
-        const uniqueRegNo = regNo.toLowerCase();
-        const result = await loginUser(uniqueRegNo, password);
+        const result = await loginUser(regNo, password);
         socket.emit('login-result', result);
     });
 
     socket.on('set-score-zero', async (data) => {
         const { regNo } = data;
-        const uniqueRegNo = regNo.toLowerCase();
-        const result = await setScoreZero(uniqueRegNo);
+        const result = await setScoreZero(regNo);
         socket.emit('on-set-score-zero', result);
     });
 

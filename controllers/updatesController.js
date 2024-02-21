@@ -41,9 +41,8 @@ const updateBonus = async (regNo, bonus) => {
 }
 const updateUserRollValue = async (req, res) => {
     const { regNo, diceRoll } = req.body;
-    const uniqueRegNo = regNo.toLowerCase();
     try {
-        const user = await userModel.findOneAndUpdate({ regNo: uniqueRegNo },
+        const user = await userModel.findOneAndUpdate({ regNo: regNo },
             { $push: { rollValues: diceRoll } },
             { new: true }
         );
@@ -61,9 +60,8 @@ const updateUserRollValue = async (req, res) => {
 
 const updateContestTimer = async (req, res) => {
     const { regNo, startTime } = req.body;
-    const uniqueRegNo = regNo.toLowerCase();
-    const acl = ["21331a05g3", "21331a05f9", "21331a05g5"];
-    if (acl.includes(uniqueRegNo)) {
+    const acl = ["21331A05G3", "21331A05F9", "21331A05G5"];
+    if (acl.includes(regNo)) {
         var defaultStartTime = Date.now();
         defaultStartTime += 60 * 60 * 1000;
         try {
