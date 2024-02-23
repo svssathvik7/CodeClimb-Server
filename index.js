@@ -14,6 +14,8 @@ const { getPawnDetails, getQuestion, getLeaderBoard } = require('./controllers/f
 const { updatePosition, setScoreZero, updateBonus } = require('./controllers/updatesController.js');
 const { codeTestPipeline } = require('./controllers/codeTestController.js');
 const { loginUser } = require('./controllers/authenticationController.js');
+const userModel = require('./models/userModel.js');
+
 
 const app = express();
 
@@ -26,7 +28,8 @@ app.use("/api/codes/", codeRunnerRouter);
 app.use('/api/details/', fetchDetailsRouter);
 app.use('/mediumQB', express.static(path.join(__dirname, 'mediumQB')));
 
-const expressServer = app.listen(PORT, () => {
+
+const expressServer = app.listen(PORT, async () => {
     console.log(`Listening at port ${PORT}`);
 });
 

@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
     try {
-        const { regNo, password } = req.body;
+        const { username, password } = req.body.formData;
+        const regNo = username;
         const checkUser = await userModel.findOne({ regNo: regNo });
         if (!checkUser) {
             const newUser = new userModel({
