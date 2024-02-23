@@ -55,4 +55,19 @@ const loginUser = async (regNo, password) => {
     }
 }
 
-module.exports = { loginUser, registerUser };
+const createUsers = async (req, res) => {
+    try {
+        const { userIDs } = req.body;
+        for (const userID of userIDs) {
+
+            await userModel.create({ regNo: userID, password: 'codathon' });
+            console.log(`User ${userID} created successfully`);
+        }
+        res.json({ message: 'All users created successfully', status: true })
+    } catch (error) {
+        console.error('Error creating users:', error);
+        res.json({ message: "Error occured while creating accounts", status: false });
+    }
+};
+
+module.exports = { loginUser, registerUser, createUsers };
