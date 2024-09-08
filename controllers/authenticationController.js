@@ -60,12 +60,13 @@ const loginUser = async (regNo, password) => {
 }
 
 const createUsers = async (req, res) => {
+    // we expect users object where each user has userID and isAdmin value
     try {
-        const { userIDs } = req.body;
-        for (const userID of userIDs) {
+        const { users } = req.body;
+        for (const user of users) {
 
-            await userModel.create({ regNo: userID, password: 'codathon' });
-            console.log(`User ${userID} created successfully`);
+            await userModel.create({ regNo: user.userID, password: 'codathon',isAdmin : (user.isAdmin == "true" ? true : false) });
+            console.log(`User ${user.userID} created successfully`);
         }
         res.json({ message: 'All users created successfully', status: true })
     } catch (error) {
