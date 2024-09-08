@@ -3,10 +3,10 @@ const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
 
-
+// we expect isAdmin as "true" or "false"
 const registerUser = async (req, res) => {
     try {
-        const { username, password } = req.body.formData;
+        const { username, password, isAdmin } = req.body.formData;
         const regNo = username;
         const checkUser = await userModel.findOne({ regNo: regNo });
         if (!checkUser) {
@@ -14,6 +14,7 @@ const registerUser = async (req, res) => {
             const newUser = new userModel({
                 regNo: regNo,
                 password: password,
+                isAdmin : isAdmin,
                 score: 0,
                 totalRolls: 0,
                 currPosition: 1,
@@ -45,7 +46,8 @@ const loginUser = async (regNo, password) => {
         if (match) {
             const token = jwt.sign({
                 id: user._id,
-                regNo: user.regNo
+                regNo: user.regNo,
+                isAdmin : user.isAdmin
             }, process.env.SECRET, { expiresIn: '60m' });
             return [true, token];
         }
@@ -60,17 +62,19 @@ const loginUser = async (regNo, password) => {
 }
 
 const createUsers = async (req, res) => {
+    // we expect users object where each user has userID and isAdmin value
     try {
-        const { userIDs } = req.body;
-        for (const userID of userIDs) {
+        const { users } = req.body;
+        const commonHashPass = bcrypt("codathon",10);
+        for (const user of users) {
 
-            await userModel.create({ regNo: userID, password: 'codathon' });
-            console.log(`User ${userID} created successfully`);
+            await userModel.create({ regNo: user.userID, password: commonHashPass,isAdmin : (user.isAdmin == "true" ? true : false) });
+            console.log(`User ${user.userID} created successfully`);
         }
-        res.json({ message: 'All users created successfully', status: true })
+        return res.json({ message: 'All users created successfully', status: true })
     } catch (error) {
         console.error('Error creating users:', error);
-        res.json({ message: "Error occured while creating accounts", status: false });
+        return res.json({ message: "Error occured while creating accounts", status: false });
     }
 };
 
