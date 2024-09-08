@@ -45,7 +45,8 @@ const loginUser = async (regNo, password) => {
         if (match) {
             const token = jwt.sign({
                 id: user._id,
-                regNo: user.regNo
+                regNo: user.regNo,
+                isAdmin : user.isAdmin
             }, process.env.SECRET, { expiresIn: '60m' });
             return [true, token];
         }
@@ -63,9 +64,10 @@ const createUsers = async (req, res) => {
     // we expect users object where each user has userID and isAdmin value
     try {
         const { users } = req.body;
+        const commonHashPass = bcrypt("codathon",10);
         for (const user of users) {
 
-            await userModel.create({ regNo: user.userID, password: 'codathon',isAdmin : (user.isAdmin == "true" ? true : false) });
+            await userModel.create({ regNo: user.userID, password: commonHashPass,isAdmin : (user.isAdmin == "true" ? true : false) });
             console.log(`User ${user.userID} created successfully`);
         }
         res.json({ message: 'All users created successfully', status: true })
