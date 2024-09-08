@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     },
     score: {
         type: Number,
-        default:0
+        default: 0
     },
     questions: {
         easy: {
