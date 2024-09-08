@@ -8,6 +8,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isAdmin : {
+        type : Boolean,
+        required : false,
+        default : false
+    },
     currPosition: {
         type: Number,
         default: 1

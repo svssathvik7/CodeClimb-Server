@@ -1,5 +1,4 @@
 const userModel = require('../models/userModel');
-const adminModel = require('../models/adminModel');
 const reqModel = require("../models/requirementModel");
 
 const updatePosition = async (diceRoll, regNo, from) => {
@@ -64,8 +63,8 @@ const updateContestTimer = async (req, res) => {
 
     console.log('HELO');
 
-    // const acl = await adminModel.find({}); // this is used to retrieve the dynamic acl from the database, which is created by one time usage code.
-    const acl = ["AdminAzeem", "21331A05F9  ", "21331A05G5"]
+    const acl = await userModel.find({isAdmin:true});
+    // const acl = ["AdminAzeem", "21331A05F9  ", "21331A05G5"]
     if (acl.includes(regNo)) {
         var defaultStartTime = Date.now();
         defaultStartTime += 60 * 60 * 1000;

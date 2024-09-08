@@ -1,7 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const { updateScore, updatePosition, updateContestTimer, getContestTime, setScoreZero,
-                                updateUserRollValue } = require('../controllers/updatesController.js');
+const { updateScore, updatePosition, updateContestTimer, getContestTime, setScoreZero, updateUserRollValue } = require('../controllers/updatesController.js');
 
 
 Router.post('/updatePosition', updatePosition);
