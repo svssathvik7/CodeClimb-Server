@@ -28,7 +28,6 @@ app.use("/api/codes/", codeRunnerRouter);
 app.use('/api/details/', fetchDetailsRouter);
 app.use('/mediumQB', express.static(path.join(__dirname, 'mediumQB')));
 
-
 const expressServer = app.listen(PORT, async () => {
     console.log(`Listening at port ${PORT}`);
 });

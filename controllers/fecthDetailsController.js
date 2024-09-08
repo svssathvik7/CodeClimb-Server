@@ -77,7 +77,10 @@ const getResults = async (req, res) => {
                 return (b.score / b.totalRolls) - (a.score / a.totalRolls);
             }
         });
-        res.json({ message: "Successfully fetched Results.", users: users, status: true });
+        const results = users.map((ele) => {
+            return { rollNo: ele.regNo, score: ele.score, diceRolls: ele.totalRolls };
+        })
+        res.json({ message: "Successfully fetched Results.", users: results, status: true });
 
     } catch (error) {
         console.log(error.message);
