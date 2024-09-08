@@ -1,6 +1,7 @@
 require('dotenv').config();
 const userModel = require('../models/userModel');
 const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
 
 
 const registerUser = async (req, res) => {
@@ -9,6 +10,7 @@ const registerUser = async (req, res) => {
         const regNo = username;
         const checkUser = await userModel.findOne({ regNo: regNo });
         if (!checkUser) {
+            password = await bcrypt(password,10);
             const newUser = new userModel({
                 regNo: regNo,
                 password: password,
@@ -23,14 +25,14 @@ const registerUser = async (req, res) => {
                 },
             });
             await newUser.save();
-            res.json({ message: "Successfully registered", status: true });
+            return res.json({ message: "Successfully registered", status: true });
         }
         else {
-            res.json({ message: "User already registered!", status: false });
+            return res.json({ message: "User already registered!", status: false });
         }
     } catch (error) {
         console.log(error.message);
-        res.json({ message: "Error Occured", status: false });
+        return res.json({ message: "Error Occured", status: false });
     }
 }
 const loginUser = async (regNo, password) => {
@@ -39,7 +41,8 @@ const loginUser = async (regNo, password) => {
         if (user === null) {
             return false;
         }
-        else if (user.password === password) {
+        const match = await bcrypt.compare(password,user.password);
+        if (match) {
             const token = jwt.sign({
                 id: user._id,
                 regNo: user.regNo
