@@ -65,12 +65,7 @@ const updateUserRollValue = async (req, res) => {
 
 const updateContestTimer = async (req, res) => {
   const { regNo } = req.body;
-
-  console.log("HELO");
-
   const userMatch = await userModel.findOne({ regNo });
-  // const acl = ["AdminAzeem", "21331A05F9  ", "21331A05G5"]
-  console.log(userMatch);
   if (userMatch.isAdmin) {
     var defaultStartTime = Date.now();
     defaultStartTime += 60 * 60 * 1000;
